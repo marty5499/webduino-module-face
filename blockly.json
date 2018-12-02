@@ -1,0 +1,17 @@
+{
+  
+  "types": ["face_get_description","face_get_euclideanDistance"],
+  "category": "toolbox",
+  "scripts": [
+    "blockly/blocks.js",
+    "blockly/javascript.js"
+  ],
+  "dependencies": [
+    "face-api.js",
+    "face.js",
+    "face-blockly.js"
+  ],
+  "msg": "blockly/msg",
+  "blocksMsg": "blockly/msg/blocks",
+  "toolbox": "blockly/toolbox.xml"
+}

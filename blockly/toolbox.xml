@@ -1,0 +1,31 @@
+<category id="catFace">
+  <block type="variables_set">
+    <field name="VAR">face</field>
+    <value name="VALUE">
+      <block type="face_get_description">
+        <value name="description">
+          <block type="text">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+  <block type="variables_set" >
+    <field name="VAR">diff</field>
+    <value name="VALUE">
+      <block type="face_get_euclideanDistance">
+        <value name="faceA">
+          <block type="variables_get">
+            <field name="VAR">變數</field>
+          </block>
+        </value>
+        <value name="faceB">
+          <block type="variables_get">
+            <field name="VAR">變數</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
+</category>
