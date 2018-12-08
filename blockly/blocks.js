@@ -12,3 +12,23 @@ Blockly.JavaScript['face_get_euclideanDistance'] = function (block) {
   return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+
+//https://blockly-demo.appspot.com/static/demos/blockfactory_old/index.html#g73ris
+Blockly.JavaScript['face_get_camera'] = function (block) {
+  var variable_camera = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('camera'), Blockly.Variables.NAME_TYPE);
+  var text_src = block.getFieldValue('src');
+  var statements_img = Blockly.JavaScript.statementToCode(block, 'img');
+  var code = variable_camera + ' = createCamera("' + text_src + '",224,224,async function(img){\n';
+  code += '  ' + variable_camera + ".blobData = img;\n";
+  code += statements_img;
+  code += '\n});';
+  return code;
+};
+
+
+Blockly.JavaScript['face_get_canvas'] = function (block) {
+  var variable_canvas = Blockly.JavaScript.variableDB_.getName(block.getFieldValue('camera'), Blockly.Variables.NAME_TYPE);
+  var code = variable_canvas + '.blobData';
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+

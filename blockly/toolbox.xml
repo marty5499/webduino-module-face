@@ -11,7 +11,7 @@
       </block>
     </value>
   </block>
-  <block type="variables_set" >
+  <block type="variables_set">
     <field name="VAR">diff</field>
     <value name="VALUE">
       <block type="face_get_euclideanDistance">
@@ -28,4 +28,7 @@
       </block>
     </value>
   </block>
+  <block type="face_get_camera">
+  </block>
+  <block type="face_get_canvas"></block>
 </category>

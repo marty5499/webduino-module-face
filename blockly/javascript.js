@@ -26,3 +26,34 @@ Blockly.Blocks['face_get_euclideanDistance'] = {
     this.setHelpUrl('https://webduino.io/');
   }
 };
+
+Blockly.Blocks['face_get_camera'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldVariable("camera"), "camera")
+        .appendField("影像來源：")
+        .appendField(new Blockly.FieldTextInput("http://172.31.99.127/"), "src");
+    this.appendStatementInput("img")
+        .setCheck(null)
+        .appendField("取得影像後執行");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(290);
+    this.setTooltip('');
+    this.setHelpUrl('https://webduino.io/');
+  }
+};
+
+
+Blockly.Blocks['face_get_canvas'] = {
+  init: function () {
+    this.appendDummyInput()
+      .appendField("從")
+      .appendField(new Blockly.FieldVariable("camera"), "camera")
+      .appendField("取得影像");
+    this.setOutput(true, null);
+    this.setColour(290);
+    this.setTooltip('');
+    this.setHelpUrl('https://webduino.io/');
+  }
+};

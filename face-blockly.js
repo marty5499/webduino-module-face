@@ -4,4 +4,19 @@
   MODEL_URL = "https://marty5499.github.io/webduino-module-face/weights/";
   window.faceAPI = new webduino.module.face(MODEL_URL);
 
+  window.createCamera = function (camSource, width, height, callback) {
+    var c1 = document.createElement('canvas');
+    c1.width = width;
+    c1.height = height;
+    document.body.appendChild(c1);
+    var cam = new Camera(camSource);
+    cam.onCanvas(c1, function (c) {
+      var ctx = c.getContext("2d");
+      var img = new Image();
+      img.src = c.toDataURL();
+      callback(img);
+    });
+    return cam;
+  }
+
 }(window, window.webduino));

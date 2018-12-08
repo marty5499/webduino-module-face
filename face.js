@@ -33,30 +33,41 @@
     if (typeof face2 === 'string') {
       face2 = face2.split(',').length == 128 ? JSON.parse("[" + face2 + "]") : this.getDescription(face2);
     }
-    return faceapi.euclideanDistance(face1, face2);
+    try {
+      return faceapi.euclideanDistance(face1, face2);
+    } catch (e) {
+      return 1;
+    }
   }
 
-  proto.getDescription = async function (faceURL) {
-    if (!this.isReady) {
-      await this.loadModel();
-      this.isReady = true;
+  proto.getDescription = async function (image) {
+    await this.loadModel();
+    var isURL = ("" + image).substring(0, 4) === "http";
+    var input = isURL ? await faceapi.fetchImage(image) : image;
+    var singleFace = await faceapi.detectSingleFace(input);
+    if (typeof singleFace === 'object') {
+      var faceLandmarks = await faceapi.detectSingleFace(input).withFaceLandmarks();
+      var descriptor = await faceapi.detectSingleFace(input).withFaceLandmarks().withFaceDescriptor();
+      var faceDescriptor = descriptor.descriptor;
+      return faceDescriptor;
+    } else {
+      return [];
     }
-    var input = await faceapi.fetchImage(faceURL);
-    var descriptor = await faceapi.detectSingleFace(input).withFaceLandmarks().withFaceDescriptor();
-    var faceDescriptor = descriptor.descriptor;
-    return faceDescriptor;
   }
 
   proto.loadModel = async function () {
+    if (this.isReady) {
+      return;
+    }
     console.log("load face model...");
     //await faceapi.loadTinyFaceDetectorModel(this.MODEL_URL)
     await faceapi.loadSsdMobilenetv1Model(this.MODEL_URL);
     //await faceapi.loadMtcnnModel(this.MODEL_URL);
     //await faceapi.loadTinyYolov2Model(this.MODEL_URL);
-
     await faceapi.loadFaceLandmarkModel(this.MODEL_URL);
     await faceapi.loadFaceRecognitionModel(this.MODEL_URL);
     console.log("done.");
+    this.isReady = true;
   }
 
   scope.module.face = face;
