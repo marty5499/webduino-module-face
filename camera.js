@@ -19,7 +19,7 @@ let Camera = (function () {
           this.camType = jpgCam;
         }
       } else {
-        this.camType = camType;
+        this.camType = parseInt(camType);
       }
     }
 
