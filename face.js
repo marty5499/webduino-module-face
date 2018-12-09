@@ -16,7 +16,6 @@
   function face(MODEL_URL) {
     Module.call(this);
     this.MODEL_URL = MODEL_URL;
-    this.isReady = false;
   }
 
   face.prototype = proto =
@@ -47,8 +46,11 @@
   }
 
   proto.getDescription = async function (image) {
-    await this.loadModel();
-    var imageType = ("" + image).substring(0, 4);
+    var tmpData = ("" + image);
+    if (tmpData.split(',').length == 128) {
+      return tmpData.split(',');
+    }
+    var imageType = tmpData.substring(0, 4);
     var isBase64 = imageType === "data";
     var isURL = imageType === "http";
     var input = isURL ? await faceapi.fetchImage(image) : image;
@@ -67,9 +69,6 @@
   }
 
   proto.loadModel = async function () {
-    if (this.isReady) {
-      return;
-    }
     console.log("load face model...");
     //await faceapi.loadTinyFaceDetectorModel(this.MODEL_URL)
     await faceapi.loadSsdMobilenetv1Model(this.MODEL_URL);
@@ -78,7 +77,6 @@
     await faceapi.loadFaceLandmarkModel(this.MODEL_URL);
     await faceapi.loadFaceRecognitionModel(this.MODEL_URL);
     console.log("done.");
-    this.isReady = true;
   }
 
   scope.module.face = face;

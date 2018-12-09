@@ -1,4 +1,9 @@
 <category id="catFace">
+  <block type="face_load">
+  </block>
+  <block type="face_get_camera">
+  </block>
+  <block type="face_get_canvas"></block>
   <block type="variables_set">
     <field name="VAR">face</field>
     <value name="VALUE">
@@ -28,7 +33,4 @@
       </block>
     </value>
   </block>
-  <block type="face_get_camera">
-  </block>
-  <block type="face_get_canvas"></block>
 </category>
