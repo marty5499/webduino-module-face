@@ -40,10 +40,21 @@
     }
   }
 
+  proto.toImage = function (imgBase64) {
+    var img = new Image();
+    img.src = imgBase64;
+    return img;
+  }
+
   proto.getDescription = async function (image) {
     await this.loadModel();
-    var isURL = ("" + image).substring(0, 4) === "http";
+    var imageType = ("" + image).substring(0, 4);
+    var isBase64 = imageType === "data";
+    var isURL = imageType === "http";
     var input = isURL ? await faceapi.fetchImage(image) : image;
+    if (isBase64) {
+      input = this.toImage(input);
+    }
     var singleFace = await faceapi.detectSingleFace(input);
     if (typeof singleFace === 'object') {
       var faceLandmarks = await faceapi.detectSingleFace(input).withFaceLandmarks();
