@@ -10,6 +10,7 @@
     c1.height = height;
     document.body.appendChild(c1);
     var cam = new Camera(camSource);
+    cam.blobData = null;
     cam.onCanvas(c1, function (c) {
       var ctx = c.getContext("2d");
       var img = new Image();

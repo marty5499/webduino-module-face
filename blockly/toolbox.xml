@@ -16,6 +16,17 @@
       </block>
     </value>
   </block>
+  <block type="demo_show_text">
+    <value name="show_">
+      <block type="face_get_description">
+        <value name="description">
+          <block type="face_get_canvas">
+            <field name="camera">camera</field>
+          </block>
+        </value>
+      </block>
+    </value>
+  </block>
   <block type="variables_set">
     <field name="VAR">diff</field>
     <value name="VALUE">

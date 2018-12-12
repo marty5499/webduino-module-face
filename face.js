@@ -46,6 +46,9 @@
   }
 
   proto.getDescription = async function (image) {
+    if (image == null) {
+      return [];
+    }
     var tmpData = ("" + image);
     if (tmpData.split(',').length == 128) {
       return tmpData.split(',');
